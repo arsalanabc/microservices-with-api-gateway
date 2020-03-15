@@ -1,9 +1,9 @@
 FROM node:12
 
-COPY . /opt/app
-
 WORKDIR /opt/app
 
-RUN yarn
+COPY . .
 
-CMD yarn watch
+RUN npm i
+
+CMD npm run watch
