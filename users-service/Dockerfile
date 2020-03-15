@@ -2,7 +2,7 @@ FROM node:12
 
 COPY . /opt/app
 
-WORKDIR /the/workdir/path
+WORKDIR /opt/app
 
 RUN yarn
 
