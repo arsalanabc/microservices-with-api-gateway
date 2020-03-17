@@ -4,6 +4,8 @@ services:
         build: listings-service
         depends_on: 
             - listings-service-db
+        environment: 
+            - DB_URI=mysql://root:password@listings-service-db/db?charset=UTF8
         volumes:
             - "./listings-service:/opt/app"
 
