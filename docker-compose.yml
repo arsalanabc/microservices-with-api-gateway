@@ -21,6 +21,8 @@ services:
         build: users-service
         depends_on: 
             - users-service-db
+        environment: 
+            - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
         volumes:
             - "./users-service:/opt/app"
 
