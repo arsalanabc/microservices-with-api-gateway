@@ -1,5 +1,8 @@
-import path from "path";
+import "@babel/polyfill";
 
-console.log("this is working from users service last");
+import "#root/db/connection";
+import "#root/server/startServer"; 
+
+console.log(process.env.DB_URI);
 
 
