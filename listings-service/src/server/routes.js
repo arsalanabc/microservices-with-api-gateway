@@ -1,5 +1,10 @@
+import { Listing } from "#root/db/models/listings";
+
 const routes = app => {
-    app.get('/', (req, res) => res.json({"msg":"welcome to listing service"}));
+    app.get('/listings', async (req, res, next) => {
+        const listings = await Listing.findAll();
+        return res.json(listings);
+    });
 };
 
 export default routes;
