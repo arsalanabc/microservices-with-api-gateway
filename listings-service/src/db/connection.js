@@ -11,3 +11,5 @@ const sequelize = new Sequelize(DB_URI, {
     },
     logging: false
 });
+
+export default sequelize;
