@@ -6,8 +6,8 @@ const formatGraphQLErrors = error => {
     try {
         if(errorDetails) return JSON.parse(errorDetails);
     } catch (e) {
-        return errorDetails;
     }
+    return error;
 };
 
 export default formatGraphQLErrors;
