@@ -1,6 +1,6 @@
 module.exports.up = (queryInterface, DataTypes) => {
     return queryInterface.createTable(
-        "userSession",
+        "userSessions",
         {
             id: {
                 allowNull: false,
@@ -11,7 +11,7 @@ module.exports.up = (queryInterface, DataTypes) => {
                 allowNull: false,
                 references: {
                     key: "id",
-                    model: "users"
+                    model: "Users"
                 },
                 type: DataTypes.UUID
             },
