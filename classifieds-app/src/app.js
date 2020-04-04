@@ -1,7 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 
+const Wrapper = styled.div`
+    box-sizing: border-box;
+    height:100%;
+    padding: 1rem;
+    width:100%;
+`;
 const App =() => {
-    return(<h1>Working from app js</h1>);
+    return(<Wrapper>hello there</Wrapper>);
 };
 
 export default App;
