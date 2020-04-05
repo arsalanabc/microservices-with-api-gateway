@@ -31,7 +31,7 @@ UserSession.init(
         },
     },
     {
-        modalName: "userSessions",
+        modalName: "UserSessions",
         sequelize: sequelize,
         paranoid: false,
         updatedAt: false,
