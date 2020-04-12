@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Login from "./Login/index"
 
 const Wrapper = styled.div`
     flex: 0 auto;
@@ -8,7 +9,10 @@ const Wrapper = styled.div`
 
 const Sidebar = () => {
     return(
-        <Wrapper>this is from Sidebar</Wrapper>
+        <Wrapper>
+            <Login />
+        </Wrapper>
+
     );
 };
 
