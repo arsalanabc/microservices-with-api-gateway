@@ -2,6 +2,8 @@ import { DataTypes, Model } from "sequelize";
 
 import sequelize from "./../connection";
 
+const LISTINGS = "listings";
+
 export class Listing extends Model {}
 
 Listing.init(
@@ -16,7 +18,8 @@ Listing.init(
         }
     },
     {
-        modelName: "listings",
+        modelName: LISTINGS,
+        tableName: LISTINGS,
         sequelize
     }
 );

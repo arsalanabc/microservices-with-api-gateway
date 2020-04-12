@@ -2,6 +2,9 @@ import { DataTypes, Model } from "sequelize";
 
 import sequelize from "#root/db/connection";
 
+const USERS = "users";
+const USERSESSIONS = "userSessions";
+
 export class User extends Model {};
 User.init(
     {
@@ -13,7 +16,8 @@ User.init(
         defaultScope: {
             rawAttributes: { exclude: ["passwordHash"] }
         },
-        modalName: "Users",
+        modalName: USERS,
+        tableName: USERS,
         sequelize: sequelize,
     }
 );
@@ -23,7 +27,7 @@ UserSession.init(
     {
         id: { allowNull: false, primaryKey: true, type: DataTypes.UUID },
         userId: {
-            allowNull: false, references: { key: "id", model: "Users" },
+            allowNull: false, references: { key: "id", model: USERS },
             type: DataTypes.UUID
         },
         expiresAt: {
@@ -31,7 +35,8 @@ UserSession.init(
         },
     },
     {
-        modalName: "UserSessions",
+        modalName: USERSESSIONS,
+        tableName: USERSESSIONS,
         sequelize: sequelize,
         paranoid: false,
         updatedAt: false,
