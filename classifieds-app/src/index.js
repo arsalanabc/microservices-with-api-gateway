@@ -1,8 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 import App from "./app";
+import * as theme from "./theme";
 
 
 const GlobalSyle = createGlobalStyle`
@@ -19,7 +20,7 @@ body {
 }
 `;
 
-render(<>
+render(<ThemeProvider theme={theme}>
     <GlobalSyle />
     <App />
-    </>, document.getElementById("app"));
+    </ThemeProvider>, document.getElementById("app"));
