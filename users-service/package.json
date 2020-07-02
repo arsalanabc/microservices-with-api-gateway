@@ -28,5 +28,8 @@
   },
   "devDependencies": {
     "babel-watch": "~7.0.0"
+  },
+  "alias": {
+    "#root": "./src"
   }
 }
