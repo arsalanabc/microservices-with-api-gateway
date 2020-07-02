@@ -5,63 +5,72 @@ import generateUUID from "#root/helpers/generateUUID";
 import hashPassword from "#root/helpers/hashPassword";
 import passwordCompareSync from "#root/helpers/passwordCompareSync";
 
-
 const USER_SESSION_EXPIRY_HOURS = 1;
 
-const setupRoutes = app => {
-    app.post("/sessions", async (req, res, next) => {
-        if (!req.body.email || !req.body.password) {
-            return next(new Error("Invalid user body"));
-        }
+const setupRoutes = (app) => {
+  app.post("/sessions", async (req, res, next) => {
+    if (!req.body.email || !req.body.password) {
+      return next(new Error("Invalid user body"));
+    }
 
-        try {
-            const user = await User.findOne({
-                attributes: {},
-                where: {
-                    email: req.body.email,
-                }
-            });
+    try {
+      const user = await User.findOne({
+        attributes: {},
+        where: {
+          email: req.body.email,
+        },
+      });
 
-            if (!user) return next(new Error("Invalid email"));
-            
-            if (!passwordCompareSync(req.body.password, user.passwordHash)) {
-                return next(new Error("Invalid password"));
-            }
+      if (!user) return next(new Error("Invalid email"));
 
-            const sessionToken = generateUUID();
+      if (!passwordCompareSync(req.body.password, user.passwordHash)) {
+        return next(new Error("Invalid password"));
+      }
 
-            const expiresAt = addHours(new Date(), USER_SESSION_EXPIRY_HOURS);
+      const sessionToken = generateUUID();
 
-            const userSession = await UserSession.create({
-                id: sessionToken,
-                userId: user.id,
-                expiresAt
-            });
-            
-            return res.json(userSession);
+      const expiresAt = addHours(new Date(), USER_SESSION_EXPIRY_HOURS);
 
-        } catch (error) {
-            return next(error);
-        }
-    });
+      const userSession = await UserSession.create({
+        id: sessionToken,
+        userId: user.id,
+        expiresAt,
+      });
 
-    app.post("/users", async (req, res, next) => {
-        if (!req.body.email || !req.body.password) {
-            return next(new Error("Invalid user body"));
-        }
+      return res.json(userSession);
+    } catch (error) {
+      return next(error);
+    }
+  });
 
-        try {
-            const newUser = await User.create({
-                email: req.body.email,
-                id: generateUUID(),
-                passwordHash: hashPassword(req.body.password)
-            });
+  app.post("/users", async (req, res, next) => {
+    if (!req.body.email || !req.body.password) {
+      return next(new Error("Invalid user body"));
+    }
 
-            return res.json(newUser);
-        } catch (error) {
-            return next(error);
-        }
-    });
+    try {
+      const newUser = await User.create({
+        email: req.body.email,
+        id: generateUUID(),
+        passwordHash: hashPassword(req.body.password),
+      });
+
+      return res.json(newUser);
+    } catch (error) {
+      return next(error);
+    }
+  });
+
+  app.get("/users/:userId", async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.userId);
+      if (!user) return next(new Error("Invalid user ID"));
+
+      return res.json(user);
+    } catch (error) {
+      return next(error);
+    }
+  });
 };
 
 export default setupRoutes;
